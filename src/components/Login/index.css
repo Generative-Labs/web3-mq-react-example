@@ -1,0 +1,60 @@
+.login_container {
+    text-align: center;
+    margin-top: 300px;
+}
+
+.step_text {
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    color: #000000;
+}
+
+.step_box .up_text {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+    height: 36px;
+}
+
+.step_box .down_text {
+    margin-top: 12px;
+    padding: 0 54px;
+    line-height: 150%;
+    color: #424242;
+}
+
+.step_box .step_text {
+    margin-top: 78px;
+    line-height: 16px;
+}
+
+.button_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.sign_btn {
+    width: 195px;
+    height: 48px;
+    border-radius: 49px;
+    border: none;
+    color: #FFFFFF;
+    background: #337DCF;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign_btn:hover {
+    /*background: rgba(51, 125, 207, 0.6);*/
+    opacity: 0.6;
+    cursor: pointer;
+
+}
+
