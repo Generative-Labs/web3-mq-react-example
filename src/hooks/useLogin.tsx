@@ -5,8 +5,9 @@ const useLogin = () => {
   const hasKeys = useMemo(() => {
     const PrivateKey = localStorage.getItem('PRIVATE_KEY') || '';
     const PublicKey = localStorage.getItem('PUBLICKEY') || '';
-    if (PrivateKey && PublicKey) {
-      return { PrivateKey, PublicKey };
+    const userid = localStorage.getItem('USERID') || '';
+    if (PrivateKey && PublicKey && userid) {
+      return { PrivateKey, PublicKey, userid };
     }
     return null;
   }, []);
@@ -25,12 +26,14 @@ const useLogin = () => {
   };
 
   const signMetaMask = async () => {
-    const { PrivateKey, PublicKey } = await Client.register.signMetaMask({
-      signContentURI: 'https://www.web3mq.com',
-    });
+    const { PrivateKey, PublicKey, userid } =
+      await Client.register.signMetaMask({
+        signContentURI: 'https://www.web3mq.com',
+      });
     localStorage.setItem('PRIVATE_KEY', PrivateKey);
     localStorage.setItem('PUBLICKEY', PublicKey);
-    setKeys({ PrivateKey, PublicKey });
+    localStorage.setItem('USERID', userid);
+    setKeys({ PrivateKey, PublicKey, userid });
   };
 
   const logout = () => {
