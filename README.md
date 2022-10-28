@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Web3MQ React Example for DevNet
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
