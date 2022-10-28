@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Client, KeyPairsType } from 'web3-mq';
+import { Client, KeyPairsType, SignClientCallBackType } from 'web3-mq';
 
 const useLogin = () => {
   const hasKeys = useMemo(() => {
@@ -36,12 +36,24 @@ const useLogin = () => {
     setKeys({ PrivateKey, PublicKey, userid });
   };
 
+  const handleEvent = (options: SignClientCallBackType) => {
+    const { type, data } = options;
+    console.log(`${type} ====>`, data);
+    if (type === 'keys') {
+      const { private_key: PrivateKey, pubkey: PublicKey, userid } = data;
+      localStorage.setItem('PRIVATE_KEY', PrivateKey);
+      localStorage.setItem('PUBLICKEY', PublicKey);
+      localStorage.setItem('USERID', userid);
+      setKeys({ PrivateKey, PublicKey, userid });
+    }
+  };
+
   const logout = () => {
     localStorage.clear();
     setKeys(null);
   };
 
-  return { keys, fastestUrl, init, signMetaMask, logout };
+  return { keys, fastestUrl, init, signMetaMask, handleEvent, logout };
 };
 
 export default useLogin;

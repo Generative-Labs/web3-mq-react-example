@@ -18,21 +18,24 @@ import Login from './components/Login';
 import useLogin from './hooks/useLogin';
 
 const App: React.FC = () => {
-  const { keys, fastestUrl, init, signMetaMask, logout } = useLogin();
+  const { keys, fastestUrl, init, signMetaMask, handleEvent, logout } =
+    useLogin();
 
   const [appType, setAppType] = useState(
-    window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc'],
+    window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']
   );
 
   useEffect(() => {
     init();
     window.addEventListener('resize', () => {
-      setAppType(window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']);
+      setAppType(
+        window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']
+      );
     });
   }, []);
 
   if (!keys) {
-    return <Login sign={signMetaMask} />;
+    return <Login sign={signMetaMask} handleEvent={handleEvent} />;
   }
 
   if (!fastestUrl) {
