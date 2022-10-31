@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Client, SignClientCallBackType } from 'web3-mq';
 import { Modal, Loading } from 'web3-mq-react';
+import { Input, Select, message, Steps } from 'antd';
 
 import useToggle from '../../hooks/useToggle';
-import { useInput } from '../../hooks/useInput';
 import { MetaMaskIcon } from '../../icons';
 
 import './index.css';
@@ -13,22 +13,32 @@ interface IProps {
   handleEvent: (options: SignClientCallBackType) => void;
 }
 
+const { Option } = Select;
+
+const { Step } = Steps;
+
 const Login: React.FC<IProps> = (props) => {
   const { sign, handleEvent } = props;
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(0);
+  const [didType, setDidType] = useState<string>('eth');
+  const [didValue, setDidValue] = useState<string>(
+    '0x7F96DDA344bDbb3747510eE7d0a1f88DD3E60Dc2'
+  );
   const [visible, show, hide] = useToggle();
   const [loading, showLoading, hideLoading] = useToggle();
 
-  const { input: input1, setValue: setValue1 } = useInput('eth');
-  const { input: input2, setValue: setValue2 } = useInput(
-    '0x7F96DDA344bDbb3747510eE7d0a1f88DD3E60Dc2'
-  );
+  const handleSelect = (value: string) => {
+    setDidType(value);
+  };
+
+  const handleInput = (e: any) => {
+    setDidValue(e.target.value);
+  };
 
   const signClient = async () => {
-    const v1 = input1.value;
-    const v2 = input2.value;
-    if (!v1 || !v2) {
-      throw new Error('the value is require');
+    if (!didType || !didValue) {
+      message.error('The value is require');
+      return;
     }
     showLoading();
     const { data } = await fetch(
@@ -41,7 +51,7 @@ const Login: React.FC<IProps> = (props) => {
         },
         body: JSON.stringify({
           dapp_id: 'web3mq:imdemo',
-          topic_id: `${v1}:${v2}`,
+          topic_id: `${didType}:${didValue}`,
           timestamp: Date.now(),
         }),
       }
@@ -58,35 +68,32 @@ const Login: React.FC<IProps> = (props) => {
       handleEvent
     );
     hideLoading();
-    setStep(2);
+    setStep(1);
   };
 
   const sendSignMsg = async () => {
-    const v1 = input1.value;
-    const v2 = input2.value;
-    if (!v1 || !v2) {
-      throw new Error('the value is require');
+    if (!didType || !didValue) {
+      message.error('The value is require');
+      return;
     }
     showLoading();
     await Client.signClient.sendDappBridge({
-      did_type: v1,
-      did_value: v2,
+      did_type: didType,
+      did_value: didValue,
     });
     hideLoading();
-    setStep(3);
-    setValue1('');
-    setValue2('');
+    setStep(2);
   };
 
   const ModalBtnGroup = () => {
-    if (step === 1) {
+    if (step === 0) {
       return (
         <div className='ModalBtnGroupBtn' onClick={signClient}>
           Temporary Connection
         </div>
       );
     }
-    if (step === 2) {
+    if (step === 1) {
       return (
         <div className='ModalBtnGroupBtn' onClick={sendSignMsg}>
           Send Validation Message
@@ -122,50 +129,45 @@ const Login: React.FC<IProps> = (props) => {
           visible={visible}
           closeModal={() => {
             hide();
-            setStep(1);
-            setValue1('');
-            setValue2('');
+            setStep(0);
           }}
           dialogClassName='modalContent'>
+          <div className='step'>
+            <Steps size='small' current={step}>
+              <Step title='Create connect' />
+              <Step title='Send message' />
+              <Step title='Confirm' />
+            </Steps>
+          </div>
           {loading && (
             <div className='modalLoading'>
               <Loading />
             </div>
           )}
+          {step === 0 && !loading && (
+            <div className='modalContentBody modalContentBodyInput'>
+              <Select
+                size='large'
+                style={{ width: '60%', height: 42 }}
+                value={didType}
+                onChange={handleSelect}>
+                <Option value='eth'>Eth</Option>
+                <Option value='lens.xyz'>Lens</Option>
+              </Select>
+              <br />
+              <Input
+                value={didValue}
+                onChange={handleInput}
+                placeholder='please enter your Did Value'
+              />
+            </div>
+          )}
           {step === 1 && !loading && (
             <div className='modalContentBody modalContentBodyInput'>
-              <input
-                disabled
-                type='text'
-                placeholder='please enter your Did Type'
-                {...input1}
-              />
-              <br />
-              <input
-                type='text'
-                placeholder='please enter your Did Value'
-                {...input2}
-              />
+              Step2: Send Message
             </div>
           )}
           {step === 2 && !loading && (
-            <div className='modalContentBody modalContentBodyInput'>
-              <input
-                disabled
-                type='text'
-                placeholder='please enter your Did Type'
-                {...input1}
-              />
-              <br />
-              <input
-                disabled
-                type='text'
-                placeholder='please enter your Did Value'
-                {...input2}
-              />
-            </div>
-          )}
-          {step === 3 && !loading && (
             <div className='modalContentBody codeContainer'>
               <div className='code'>
                 {Client.signClient.tempCode.split('').map((item, idx) => (

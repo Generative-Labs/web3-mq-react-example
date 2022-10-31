@@ -17,6 +17,8 @@ import MsgInput from './components/MsgInput';
 import Login from './components/Login';
 import useLogin from './hooks/useLogin';
 
+import './App.css';
+
 const App: React.FC = () => {
   const { keys, fastestUrl, init, signMetaMask, handleEvent, logout } =
     useLogin();

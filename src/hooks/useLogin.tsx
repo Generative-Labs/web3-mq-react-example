@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Client, KeyPairsType, SignClientCallBackType } from 'web3-mq';
+import { message } from 'antd';
 
 const useLogin = () => {
   const hasKeys = useMemo(() => {
@@ -30,6 +31,7 @@ const useLogin = () => {
       await Client.register.signMetaMask({
         signContentURI: 'https://www.web3mq.com',
       });
+
     localStorage.setItem('PRIVATE_KEY', PrivateKey);
     localStorage.setItem('PUBLICKEY', PublicKey);
     localStorage.setItem('USERID', userid);
@@ -44,7 +46,9 @@ const useLogin = () => {
       localStorage.setItem('PRIVATE_KEY', PrivateKey);
       localStorage.setItem('PUBLICKEY', PublicKey);
       localStorage.setItem('USERID', userid);
-      setKeys({ PrivateKey, PublicKey, userid });
+      message.success('login success', 2).then(() => {
+        setKeys({ PrivateKey, PublicKey, userid });
+      });
     }
   };
 
