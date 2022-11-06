@@ -17,8 +17,8 @@
     "react-scripts": "5.0.1",
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4",
-    "web3-mq": "^1.2.45",
-    "web3-mq-react": "^1.1.7"
+    "web3-mq": "^1.2.46",
+    "web3-mq-react": "^1.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
