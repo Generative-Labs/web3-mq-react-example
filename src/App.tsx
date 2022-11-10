@@ -3,7 +3,6 @@ import { Client } from 'web3-mq';
 import {
   Chat,
   Channel,
-  Main,
   DashBoard,
   AppTypeEnum,
   Window,
@@ -49,7 +48,6 @@ const App: React.FC = () => {
   return (
     <Chat client={client} appType={appType} logout={logout}>
       <DashBoard />
-      <Main />
       <Channel>
         <Window>
           <MessageHeader avatarSize={40} />
