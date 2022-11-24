@@ -5,6 +5,7 @@ import { Input, Select, message, Steps } from 'antd';
 
 import useToggle from '../../hooks/useToggle';
 import { MetaMaskIcon } from '../../icons';
+import MPCBtn from '../MPCBtn'
 
 import './index.css';
 
@@ -180,6 +181,7 @@ const Login: React.FC<IProps> = (props) => {
           )}
           <ModalBtnGroup />
         </Modal>
+        <MPCBtn />
       </div>
     </div>
   );
