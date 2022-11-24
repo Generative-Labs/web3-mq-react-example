@@ -36,7 +36,7 @@ const MPCBtn = () => {
     const data = await request('/login', values);
     localStorage.setItem('TOKEN', data.data);
     if (data.code === 0) {
-      message.success('register success');
+      message.success('login success');
     } else {
       message.error(data.msg);
     }
@@ -46,7 +46,7 @@ const MPCBtn = () => {
     showCreateLoading();
     const data = await request('/create', { threadhold: 3 });
     if (data.code === 0) {
-      message.success('register success');
+      message.success('create success');
     } else {
       message.error(data.msg);
     }
@@ -57,7 +57,7 @@ const MPCBtn = () => {
     showSignLoading();
     const data = await request('/sign', { message: '123' });
     if (data.code === 0) {
-      message.success('register success');
+      message.success('sign success');
     } else {
       message.error(data.msg);
     }
