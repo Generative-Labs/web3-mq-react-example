@@ -5,12 +5,13 @@ import { Input, Select, message, Steps } from 'antd';
 
 import useToggle from '../../hooks/useToggle';
 import { MetaMaskIcon } from '../../icons';
-import MPCBtn from '../MPCBtn'
+import MPCBtn from '../MPCBtn';
 
 import './index.css';
 
 interface IProps {
   sign: () => void;
+  setKeys: any;
   handleEvent: (options: SignClientCallBackType) => void;
 }
 
@@ -19,7 +20,7 @@ const { Option } = Select;
 const { Step } = Steps;
 
 const Login: React.FC<IProps> = (props) => {
-  const { sign, handleEvent } = props;
+  const { sign, handleEvent, setKeys } = props;
   const [step, setStep] = useState<number>(0);
   const [didType, setDidType] = useState<string>('eth');
   const [didValue, setDidValue] = useState<string>(
@@ -181,7 +182,7 @@ const Login: React.FC<IProps> = (props) => {
           )}
           <ModalBtnGroup />
         </Modal>
-        <MPCBtn />
+        <MPCBtn setKeys={setKeys} />
       </div>
     </div>
   );

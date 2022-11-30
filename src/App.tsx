@@ -19,7 +19,7 @@ import useLogin from './hooks/useLogin';
 import './App.css';
 
 const App: React.FC = () => {
-  const { keys, fastestUrl, init, signMetaMask, handleEvent, logout } =
+  const { keys, fastestUrl, init, signMetaMask, handleEvent, logout, setKeys } =
     useLogin();
 
   const [appType, setAppType] = useState(
@@ -36,7 +36,9 @@ const App: React.FC = () => {
   }, []);
 
   if (!keys) {
-    return <Login sign={signMetaMask} handleEvent={handleEvent} />;
+    return (
+      <Login sign={signMetaMask} handleEvent={handleEvent} setKeys={setKeys} />
+    );
   }
 
   if (!fastestUrl) {

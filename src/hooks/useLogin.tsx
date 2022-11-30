@@ -57,7 +57,7 @@ const useLogin = () => {
     setKeys(null);
   };
 
-  return { keys, fastestUrl, init, signMetaMask, handleEvent, logout };
+  return { keys, fastestUrl, init, signMetaMask, handleEvent, logout, setKeys };
 };
 
 export default useLogin;
