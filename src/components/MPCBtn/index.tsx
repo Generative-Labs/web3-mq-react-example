@@ -20,10 +20,11 @@ interface IProos {
 const MPCBtn = (props: IProos) => {
   const { setKeys } = props;
   const [visible, show, hide] = useToggle();
-  const [step, setStep] = useState('login');
+  const [step, setStep] = useState('check');
   const [signStep, setSignStep] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('TOKEN'));
+  const [form] = Form.useForm();
 
   const request = async (url: string, params?: any) => {
     const data = await fetch(`https://dev-mpc.web3mq.com/mpc${url}`, {
@@ -35,7 +36,6 @@ const MPCBtn = (props: IProos) => {
       },
       body: params ? JSON.stringify(params) : '',
     }).then((res) => res.json());
-    console.log(data);
     if (data.code === 400) {
       message.error(data.msg);
       setToken(null);
@@ -44,6 +44,27 @@ const MPCBtn = (props: IProos) => {
       return;
     }
     return data;
+  };
+
+  const check = async (values: any) => {
+    setLoading(true);
+    const data = await fetch(
+      `https://dev-mpc.web3mq.com/mpc/account?email=${values.email}`,
+      {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    ).then((res) => res.json());
+    if (data.code === 0) {
+      form.setFieldValue('email', values.email);
+      setStep('login');
+    } else {
+      setStep('register');
+    }
+    setLoading(false);
   };
 
   const register = async (values: any) => {
@@ -194,8 +215,33 @@ Issued At: ${getCurrentDate()}`;
       </button>
       <Modal visible={visible} closeModal={hide}>
         <div className='dialogClassName'>
+          {step === 'check' && (
+            <Form
+              name='check'
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+              initialValues={{ remember: true }}
+              onFinish={check}
+              onFinishFailed={onFinishFailed}
+              autoComplete='off'>
+              <Form.Item
+                label='Email'
+                name='email'
+                rules={[
+                  { required: true, message: 'Please input your email!' },
+                ]}>
+                <Input placeholder='Please input your email!' />
+              </Form.Item>
+              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Button loading={loading} type='primary' htmlType='submit'>
+                  Next
+                </Button>
+              </Form.Item>
+            </Form>
+          )}
           {step === 'register' && !token && (
             <Form
+              form={form}
               name='register'
               labelCol={{ span: 8 }}
               wrapperCol={{ span: 16 }}
@@ -204,8 +250,8 @@ Issued At: ${getCurrentDate()}`;
               onFinishFailed={onFinishFailed}
               autoComplete='off'>
               <Form.Item
-                label='Username'
-                name='username'
+                label='Email'
+                name='email'
                 rules={[
                   { required: true, message: 'Please input your email!' },
                 ]}>
@@ -238,6 +284,7 @@ Issued At: ${getCurrentDate()}`;
           )}
           {step === 'login' && !token && (
             <Form
+              form={form}
               name='login'
               labelCol={{ span: 8 }}
               wrapperCol={{ span: 16 }}
@@ -246,8 +293,8 @@ Issued At: ${getCurrentDate()}`;
               onFinishFailed={onFinishFailed}
               autoComplete='off'>
               <Form.Item
-                label='Username'
-                name='username'
+                label='Email'
+                name='email'
                 rules={[
                   { required: true, message: 'Please input your email!' },
                 ]}>
