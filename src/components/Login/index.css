@@ -48,18 +48,22 @@
   height: 48px;
   border-radius: 49px;
   border: none;
-  color: #ffffff;
-  background: #337dcf;
+  color: #000;
+  background: #fff;
   font-weight: bold;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgb(230, 230, 230);
 }
 
 .sign_btn:hover {
   /*background: rgba(51, 125, 207, 0.6);*/
-  opacity: 0.6;
+  /* opacity: 0.6; */
+  color: #fff;
+  background-color: #337dcf;
+  border-color: transparent;
   cursor: pointer;
 }
 
@@ -137,4 +141,9 @@ select {
 .step {
   margin-top: 80px;
   padding: 0 50px;
+}
+
+.btnIcon {
+  width: 20px;
+  margin-right: 2px;
 }

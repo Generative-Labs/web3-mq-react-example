@@ -112,9 +112,9 @@ const Login: React.FC<IProps> = (props) => {
   return (
     <div className='login_container'>
       <div className='step_box'>
-        <div className='up_text'>Welcome to SwapChat</div>
+        <div className='up_text'>Welcome to Web3MQ</div>
         <div className='down_text'>
-          Let’s get started with your decentralized social trading trip now!
+          Let’s get started with your decentralized trip now!
         </div>
         <div className='step_text'>Step1: Connect Wallet</div>
       </div>
@@ -124,7 +124,8 @@ const Login: React.FC<IProps> = (props) => {
           MetaMask
         </button>
         <button onClick={show} className='sign_btn'>
-          Phone verification
+          <img className='btnIcon' src='./web3mq.logo.ico' alt='' />
+          <span>Phone verification</span>
         </button>
         <Modal
           title='Phone verification'

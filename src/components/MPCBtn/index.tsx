@@ -59,11 +59,11 @@ const MPCBtn = (props: IProos) => {
       }
     ).then((res) => res.json());
     if (data.code === 0) {
-      form.setFieldValue('email', values.email);
       setStep('login');
     } else {
       setStep('register');
     }
+    form.setFieldValue('email', values.email);
     setLoading(false);
   };
 
@@ -211,7 +211,8 @@ Issued At: ${getCurrentDate()}`;
   return (
     <div className='mpcContainer'>
       <button onClick={show} className='sign_btn'>
-        MPC Login
+        <img className='btnIcon' src='./web3mq.logo.ico' alt='' />
+        <span>MPC Login</span>
       </button>
       <Modal visible={visible} closeModal={hide}>
         <div className='dialogClassName'>
@@ -233,7 +234,15 @@ Issued At: ${getCurrentDate()}`;
                 <Input placeholder='Please input your email!' />
               </Form.Item>
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button loading={loading} type='primary' htmlType='submit'>
+                <Button
+                  style={{
+                    background: '#337dcf',
+                    borderRadius: 49,
+                    border: 'none',
+                  }}
+                  loading={loading}
+                  type='primary'
+                  htmlType='submit'>
                   Next
                 </Button>
               </Form.Item>
@@ -266,7 +275,15 @@ Issued At: ${getCurrentDate()}`;
                 <Input.Password placeholder='Please input your password!' />
               </Form.Item>
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button loading={loading} type='primary' htmlType='submit'>
+                <Button
+                  style={{
+                    background: '#337dcf',
+                    borderRadius: 49,
+                    border: 'none',
+                  }}
+                  loading={loading}
+                  type='primary'
+                  htmlType='submit'>
                   Register
                 </Button>
                 <div>
@@ -309,7 +326,15 @@ Issued At: ${getCurrentDate()}`;
                 <Input.Password placeholder='Please input your password!' />
               </Form.Item>
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button loading={loading} type='primary' htmlType='submit'>
+                <Button
+                  style={{
+                    background: '#337dcf',
+                    borderRadius: 49,
+                    border: 'none',
+                  }}
+                  loading={loading}
+                  type='primary'
+                  htmlType='submit'>
                   Login
                 </Button>
                 <div>
