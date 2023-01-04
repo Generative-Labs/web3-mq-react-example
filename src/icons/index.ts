@@ -5,3 +5,8 @@ export * from './MetaMaskIcon';
 // export * from './SudoswapIcon';
 // export * from './TransferIcon';
 export * from './WarningIcon';
+export * from './CheveronLeft';
+export * from './CloseBtn';
+export * from './CloseEyesIcon';
+export * from './OpenEyesIcon';
+export * from './LoginErrorIcon';
