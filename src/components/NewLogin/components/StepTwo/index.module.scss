@@ -1,4 +1,6 @@
-
+.stepTwo {
+  padding-top: 16px;;
+}
 .addressBox {
   display: flex;
   width: 260px;
@@ -76,6 +78,7 @@
         font-size: 16px;
         line-height: 20px;
         color: #18181B;
+        outline: none;
       }
       .eyesBox {
         width: 20px;

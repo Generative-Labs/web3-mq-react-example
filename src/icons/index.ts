@@ -10,3 +10,8 @@ export * from './CloseBtn';
 export * from './CloseEyesIcon';
 export * from './OpenEyesIcon';
 export * from './LoginErrorIcon';
+export * from './DesktopIcon';
+export * from './MobileIcon';
+export * from './WalletMetaMaskIcon';
+export * from './WalletConnectIcon';
+export * from './ViewAllIcon';
