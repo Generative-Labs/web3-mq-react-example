@@ -5,24 +5,13 @@ import ss from './index.module.scss';
 import { getShortAddress } from '../../../../utils';
 
 interface IProps {
-  getEthAccount: () => Promise<AddressRes>;
-  login: () => Promise<LoginRes>;
-  register: () => Promise<boolean>;
+  getEthAccount: any;
+  login: any;
+  register: any;
   setHeaderTitle: any
+  userExits: boolean
+  address: string
 }
-
-
-export interface AddressRes {
-  address: string;
-  userExits: boolean;
-}
-
-export interface LoginRes {
-  success: boolean;
-  msg: string;
-  code: number;
-}
-
 const loginText = {
   title: 'Enter password',
   subTitle:
@@ -34,15 +23,12 @@ const signUpText = {
 };
 
 const StepTwo: React.FC<IProps> = (props) => {
-  const { getEthAccount, login, register, setHeaderTitle} = props;
+  const { login, register, userExits, address} = props;
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorInfo, setErrorInfo] = useState<string>();
-  const [address, setAddress] = useState('');
-  const [userExits, setUserExits] = useState(false);
-
 
   const isDisable = useMemo(() => {
     let res = !password;
@@ -52,28 +38,12 @@ const StepTwo: React.FC<IProps> = (props) => {
         res = password !== confirmPassword;
       }
     }
-
     return res;
   }, [password, userExits, confirmPassword]);
 
-  const init = async () =>{
-    const accountRes = await getEthAccount();
-    if (accountRes.userExits) {
-      setHeaderTitle('Log in');
-    } else {
-      setHeaderTitle('Sign up');
-    }
-    setAddress(accountRes.address)
-    setUserExits(accountRes.userExits)
-  }
-  useEffect(() => {
-    init()
-  }, []);
-
-
   const handleSubmit = async () => {
     if (userExits) {
-      const res = await login();
+      const res = await login(password);
       if (!res.success && res.msg) {
         setErrorInfo(res.msg);
       }
@@ -81,9 +51,8 @@ const StepTwo: React.FC<IProps> = (props) => {
       if (password !== confirmPassword) {
         setErrorInfo("Passwords don't match. Please check your password inputs.");
       }
-
-      const registerRes = await register();
-      console.log(registerRes, 'registerRes');
+      await register(password);
+      await login(password)
     }
   };
 

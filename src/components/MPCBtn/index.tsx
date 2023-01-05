@@ -170,7 +170,7 @@ Issued At: ${getCurrentDate()}`;
     if (data.code === 0) {
       const signature = data.data;
 
-      let payload: LoginParams = {
+      let payload: any = {
         userid,
         did_type,
         did_value,

@@ -1,18 +1,15 @@
 import React, { useCallback, useState } from 'react';
 import { AppTypeEnum, Button, Modal } from 'web3-mq-react';
 import useToggle from '../../hooks/useToggle';
-import {
-  CheveronLeft,
-  CloseBtnIcon,
-} from '../../icons';
+import { CheveronLeft, CloseBtnIcon } from '../../icons';
 import ss from './index.module.scss';
 import StepOne from './components/StepOne';
 import StepTwo from './components/StepTwo';
 
 interface IProps {
-  getEthAccount: () => Promise<AddressRes>;
-  login: () => Promise<LoginRes>;
-  register: () => Promise<boolean>;
+  getEthAccount: any;
+  login: any;
+  register: any;
 }
 
 export interface AddressRes {
@@ -37,6 +34,20 @@ const NewLogin: React.FC<IProps> = (props) => {
   const { getEthAccount, login, register } = props;
   const [step, setStep] = useState(StepStringEnum.HOME);
   const [headerTitle, setHeaderTitle] = useState('Log in');
+  const [address, setAddress] = useState('');
+  const [userExits, setUserExits] = useState(false);
+
+  const getAccount = async () => {
+    const { address, userExist } = await getEthAccount();
+    if (userExist) {
+      setHeaderTitle('Log in');
+    } else {
+      setHeaderTitle('Sign up');
+    }
+    setAddress(address);
+    setUserExits(userExist);
+    setStep(StepStringEnum.LOGIN_MODAL);
+  };
   // 渲染列表列
   const handleModalShow = async () => {
     show();
@@ -49,16 +60,17 @@ const NewLogin: React.FC<IProps> = (props) => {
     setHeaderTitle('Connect Dapp');
     setStep(StepStringEnum.HOME);
   };
-  const ModalHead = useCallback(
-    () => (
+  const ModalHead = () => {
+    return (
       <div className={ss.loginModalHead}>
-        { step !== StepStringEnum.HOME && <CheveronLeft onClick={handleBack} className={ss.backBtn} /> }
+        {step !== StepStringEnum.HOME && (
+          <CheveronLeft onClick={handleBack} className={ss.backBtn} />
+        )}
         <div className={ss.title}>{headerTitle}</div>
         <CloseBtnIcon onClick={handleClose} className={ss.closeBtn} />
       </div>
-    ),
-    [headerTitle, step],
-  );
+    );
+  };
 
   return (
     <div className={ss.container}>
@@ -73,11 +85,18 @@ const NewLogin: React.FC<IProps> = (props) => {
       >
         <div className={ss.modalBody}>
           {[StepStringEnum.HOME, StepStringEnum.VIEW_ALL].includes(step) && (
-            <StepOne step={step} setHeaderTitle={setHeaderTitle} setStep={setStep} />
+            <StepOne
+              getAccount={getAccount}
+              step={step}
+              setHeaderTitle={setHeaderTitle}
+              setStep={setStep}
+            />
           )}
           {step === StepStringEnum.LOGIN_MODAL && (
             <StepTwo
               login={login}
+              address={address}
+              userExits={userExits}
               register={register}
               getEthAccount={getEthAccount}
               setHeaderTitle={setHeaderTitle}

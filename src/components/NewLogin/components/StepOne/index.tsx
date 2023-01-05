@@ -1,10 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { AppTypeEnum, Button, ButtonType, MqButton } from 'web3-mq-react';
+import React, { useEffect } from 'react';
+import { Button } from 'web3-mq-react';
 import {
   DesktopIcon,
   MobileIcon,
-  ViewAllIcon,
-  WalletConnectIcon,
   WalletMetaMaskIcon,
 } from '../../../../icons';
 
@@ -17,10 +15,11 @@ interface IProps {
   setStep: any;
   setHeaderTitle: any;
   step: StepStringEnum;
+  getAccount: any
 }
 
 const StepOne: React.FC<IProps> = (props) => {
-  const { setStep, setHeaderTitle, step } = props;
+  const { setStep, setHeaderTitle, step, getAccount } = props;
   useEffect(() => {
     setHeaderTitle('Connect Dapp');
   }, []);
@@ -39,10 +38,7 @@ const StepOne: React.FC<IProps> = (props) => {
             <div className={ss.walletBox}>
               <div
                 className={ss.walletItem}
-                onClick={() => {
-                  setHeaderTitle('Choose Desktop wallets');
-                  setStep(StepStringEnum.LOGIN_MODAL);
-                }}
+                onClick={getAccount}
               >
                 <div className={ss.walletIcon}>
                   <WalletMetaMaskIcon />
@@ -71,14 +67,14 @@ const StepOne: React.FC<IProps> = (props) => {
               <div className={ss.title}>Mobile</div>
             </div>
             <div className={ss.btnsBox}>
-              <MqButton className={ss.btn}>
+              <Button className={ss.btn}>
                 <img src={web3mqIcon} className={ss.icon} alt="" />
                 Web3MQ
-              </MqButton>
-              <MqButton className={ss.btn}>
+              </Button>
+              <Button className={ss.btn}>
                 <img src={walletConnectIcon} className={ss.icon} alt="" />
                 WalletConnect
-              </MqButton>
+              </Button>
             </div>
           </div>
         </div>

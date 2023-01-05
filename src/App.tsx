@@ -19,27 +19,10 @@ import useLogin from './hooks/useLogin';
 import './App.css';
 
 const App: React.FC = () => {
-  const { keys, fastestUrl, init, signMetaMask, handleEvent, logout, setKeys } =
-    useLogin();
+  const { keys, fastestUrl, init, getEthAccount, logout, login, register } = useLogin();
   const [appType, setAppType] = useState(
     window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']
   );
-  const getEthAccount =async (): Promise<AddressRes> => {
-    return {
-      address: '0x9b6a5a1dd55ea481f76b782862e7df2977dffe6c',
-      userExits: false
-    }
-  }
-  const login =async (): Promise<LoginRes> => {
-    return {
-      success: false,
-      msg: 'The password is incorrect',
-      code: -1
-    }
-  }
-  const register =async (): Promise<boolean> => {
-    return true
-  }
 
   useEffect(() => {
     init();
