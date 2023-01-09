@@ -12,22 +12,21 @@ import {
 } from 'web3-mq-react';
 import 'web3-mq-react/dist/css/index.css';
 import MsgInput from './components/MsgInput';
+import Login from "./components/Login";
 
-import Login from './components/Login';
 import useLogin from './hooks/useLogin';
 
 import './App.css';
 
 const App: React.FC = () => {
-  const { keys, fastestUrl, init, signMetaMask, handleEvent, logout, setKeys } =
-    useLogin();
-
+  const { keys, fastestUrl, init, getEthAccount, logout, login, register, setKeys, handleEvent } = useLogin();
   const [appType, setAppType] = useState(
     window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']
   );
 
   useEffect(() => {
     init();
+    document.getElementsByTagName('body')[0].setAttribute('data-theme', 'light');
     window.addEventListener('resize', () => {
       setAppType(
         window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']
@@ -37,7 +36,7 @@ const App: React.FC = () => {
 
   if (!keys) {
     return (
-      <Login sign={signMetaMask} handleEvent={handleEvent} setKeys={setKeys} />
+      <Login  login={login} register={register} getEthAccount={getEthAccount} setKeys={setKeys} handleEvent={handleEvent}/>
     );
   }
 
