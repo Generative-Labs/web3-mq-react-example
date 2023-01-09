@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useState } from 'react';
-import { Client, KeyPairsType } from 'web3-mq';
+import { useMemo, useState } from 'react';
+import {Client, KeyPairsType, SignClientCallBackType} from 'web3-mq';
+import {message} from "antd";
 
 const useLogin = () => {
   const hasKeys = useMemo(() => {
@@ -20,10 +21,15 @@ const useLogin = () => {
   }>();
 
   const init = async () => {
+    const tempPubkey = localStorage.getItem('PUBLIC_KEY') || '';
+    const walletAddress = localStorage.getItem('WALLET_ADDRESS');
+    const didKey = walletAddress ? `eth:${walletAddress}` : '';
     const fastUrl = await Client.init({
       connectUrl: localStorage.getItem('FAST_URL'),
       app_key: 'vAUJTFXbBZRkEDRE',
       env: 'dev',
+      didKey,
+      tempPubkey,
     });
     localStorage.setItem('FAST_URL', fastUrl);
     setFastUrl(fastUrl);
@@ -31,7 +37,6 @@ const useLogin = () => {
 
   const getEthAccount = async () => {
     const { address } = await Client.register.getEthAccount();
-    console.log(address, 'address = getEthAccount')
     const { userid, userExist } = await Client.register.getUserInfo({
       did_value: address,
       did_type: 'eth',
@@ -53,20 +58,23 @@ const useLogin = () => {
       return;
     }
 
-    const mainPrivateKey = localStorage.getItem('MAIN_PRIVATE_KEY') || '';
-    const mainPublicKey = localStorage.getItem('MAIN_PUBLIC_KEY') || '';
+    const localMainPrivateKey = localStorage.getItem('MAIN_PRIVATE_KEY') || '';
+    const localMainPublicKey = localStorage.getItem('MAIN_PUBLIC_KEY') || '';
 
     const { userid, address } = userAccount;
-    const { TempPrivateKey, TempPublicKey, pubkeyExpiredTimestamp } =
+    const { TempPrivateKey, TempPublicKey, pubkeyExpiredTimestamp, mainPrivateKey, mainPublicKey } =
         await Client.register.signMetaMask({
           password,
           userid,
           did_value: address,
-          mainPublicKey,
-          mainPrivateKey
+          mainPublicKey: localMainPublicKey,
+          mainPrivateKey: localMainPrivateKey,
         });
     localStorage.setItem('PRIVATE_KEY', TempPrivateKey);
     localStorage.setItem('PUBLIC_KEY', TempPublicKey);
+    localStorage.setItem('MAIN_PRIVATE_KEY', mainPrivateKey);
+    localStorage.setItem('MAIN_PUBLIC_KEY', mainPublicKey);
+    localStorage.setItem('WALLET_ADDRESS', address);
     localStorage.setItem('PUBKEY_EXPIRED_TIMESTAMP', String(pubkeyExpiredTimestamp));
     setKeys({
       PrivateKey: TempPrivateKey,
@@ -79,7 +87,6 @@ const useLogin = () => {
     if (!userAccount) {
       return;
     }
-    console.log(password, 'password')
     const { address, userid } = userAccount;
     const { mainPrivateKey, mainPublicKey } = await Client.register.registerMetaMask({
       password,
@@ -91,12 +98,29 @@ const useLogin = () => {
     localStorage.setItem('MAIN_PUBLIC_KEY', mainPublicKey);
   };
 
+  const handleEvent = (options: SignClientCallBackType) => {
+    const { type, data } = options;
+    console.log(`${type} ====>`, data);
+    if (type === 'keys') {
+      const { private_key: PrivateKey, pubkey: PublicKey, userid } = data;
+      localStorage.setItem('PRIVATE_KEY', PrivateKey);
+      localStorage.setItem('PUBLICKEY', PublicKey);
+      localStorage.setItem('USERID', userid);
+      message.success('login success', 2).then(() => {
+        setKeys({ PrivateKey, PublicKey, userid });
+      });
+    }
+  };
+
   const logout = () => {
-    localStorage.clear();
+    localStorage.setItem('PRIVATE_KEY', '')
+    localStorage.setItem('PUBLIC_KEY', '')
+    localStorage.setItem('WALLET_ADDRESS', '')
+    localStorage.setItem('userid', '')
     setKeys(null);
   };
 
-  return { keys, fastestUrl, init, login, logout, getEthAccount, register };
+  return { keys, fastestUrl, init, login, logout, getEthAccount, register, setKeys, handleEvent };
 };
 
 export default useLogin;

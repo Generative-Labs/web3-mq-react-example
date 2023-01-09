@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Client, SignClientCallBackType } from 'web3-mq';
-import { Modal, Loading } from 'web3-mq-react';
+import {Modal, Loading, LoginModal, AppTypeEnum} from 'web3-mq-react';
 import { Input, Select, message, Steps } from 'antd';
 
 import useToggle from '../../hooks/useToggle';
@@ -10,8 +10,10 @@ import MPCBtn from '../MPCBtn';
 import './index.css';
 
 interface IProps {
-  sign: () => void;
   setKeys: any;
+  login: any
+  register: any
+  getEthAccount: any
   handleEvent: (options: SignClientCallBackType) => void;
 }
 
@@ -20,7 +22,7 @@ const { Option } = Select;
 const { Step } = Steps;
 
 const Login: React.FC<IProps> = (props) => {
-  const { sign, handleEvent, setKeys } = props;
+  const { login, getEthAccount, register,  setKeys, handleEvent } = props;
   const [step, setStep] = useState<number>(0);
   const [didType, setDidType] = useState<string>('eth');
   const [didValue, setDidValue] = useState<string>(
@@ -119,10 +121,17 @@ const Login: React.FC<IProps> = (props) => {
         <div className='step_text'>Step1: Connect Wallet</div>
       </div>
       <div className='button_box'>
-        <button onClick={sign} className='sign_btn'>
-          <MetaMaskIcon />
-          MetaMask
-        </button>
+        <LoginModal
+            appType={AppTypeEnum.pc}
+            containerId={'login_container'}
+            register={register}
+            login={login}
+            getEthAccount={getEthAccount}
+            loginBtnNode={<button className='sign_btn'>
+              <MetaMaskIcon />
+              MetaMask
+            </button>}
+        />
         <button onClick={show} className='sign_btn'>
           <img className='btnIcon' src='./web3mq.logo.ico' alt='' />
           <span>Phone verification</span>
