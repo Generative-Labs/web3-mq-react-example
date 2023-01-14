@@ -22,8 +22,7 @@ const useLogin = () => {
 
   const init = async () => {
     const tempPubkey = localStorage.getItem('PUBLIC_KEY') || '';
-    const walletAddress = localStorage.getItem('WALLET_ADDRESS');
-    const didKey = walletAddress ? `eth:${walletAddress}` : '';
+    const didKey = localStorage.getItem('DID_KEY') || '';
     const fastUrl = await Client.init({
       connectUrl: localStorage.getItem('FAST_URL'),
       app_key: 'vAUJTFXbBZRkEDRE',
@@ -122,7 +121,8 @@ const useLogin = () => {
     }
   };
 
-  return { keys, fastestUrl, init, login, logout, getAccount, register, setKeys, handleEvent };
+  return { keys, fastestUrl, init, login, logout, getAccount, register, handleEvent, setKeys };
 };
 
 export default useLogin;
+
