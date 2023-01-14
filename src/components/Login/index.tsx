@@ -15,6 +15,7 @@ interface IProps {
   register: any
   getEthAccount: any
   handleEvent: (options: SignClientCallBackType) => void;
+  appType?: AppTypeEnum
 }
 
 const { Option } = Select;
@@ -22,7 +23,7 @@ const { Option } = Select;
 const { Step } = Steps;
 
 const Login: React.FC<IProps> = (props) => {
-  const { login, getEthAccount, register,  setKeys, handleEvent } = props;
+  const { login, getEthAccount, register,  setKeys, handleEvent, appType = AppTypeEnum.pc } = props;
   const [step, setStep] = useState<number>(0);
   const [didType, setDidType] = useState<string>('eth');
   const [didValue, setDidValue] = useState<string>(
@@ -122,7 +123,7 @@ const Login: React.FC<IProps> = (props) => {
       </div>
       <div className='button_box'>
         <LoginModal
-            appType={AppTypeEnum.pc}
+            appType={appType}
             containerId={'login_container'}
             register={register}
             login={login}

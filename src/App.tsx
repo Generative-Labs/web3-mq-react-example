@@ -36,7 +36,7 @@ const App: React.FC = () => {
 
   if (!keys) {
     return (
-      <Login  login={login} register={register} getEthAccount={getAccount} setKeys={setKeys} handleEvent={handleEvent} />
+      <Login  login={login} register={register} getEthAccount={getAccount} setKeys={setKeys} handleEvent={handleEvent} appType={appType} />
     );
   }
 
