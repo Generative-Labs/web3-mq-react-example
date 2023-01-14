@@ -19,7 +19,7 @@ import useLogin from './hooks/useLogin';
 import './App.css';
 
 const App: React.FC = () => {
-  const { keys, fastestUrl, init, getEthAccount, logout, login, register, setKeys, handleEvent } = useLogin();
+  const { keys, fastestUrl, init, getAccount, logout, login, register, setKeys, handleEvent } = useLogin();
   const [appType, setAppType] = useState(
     window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']
   );
@@ -36,7 +36,7 @@ const App: React.FC = () => {
 
   if (!keys) {
     return (
-      <Login  login={login} register={register} getEthAccount={getEthAccount} setKeys={setKeys} handleEvent={handleEvent}/>
+      <Login  login={login} register={register} getEthAccount={getAccount} setKeys={setKeys} handleEvent={handleEvent} />
     );
   }
 
