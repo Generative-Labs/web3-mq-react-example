@@ -19,7 +19,7 @@ import useLogin from './hooks/useLogin';
 import './App.css';
 
 const App: React.FC = () => {
-  const { keys, fastestUrl, init, getAccount, logout, login, register, setKeys, handleEvent } = useLogin();
+  const { keys, fastestUrl, init, logout, setKeys, handleEvent, handleLoginEvent } = useLogin();
   const [appType, setAppType] = useState(
     window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']
   );
@@ -35,8 +35,19 @@ const App: React.FC = () => {
   }, []);
 
   if (!keys) {
+    let mainKeys = null;
+    const mainPrivateKey = localStorage.getItem(`MAIN_PRIVATE_KEY`);
+    const mainPublicKey = localStorage.getItem(`MAIN_PUBLIC_KEY`);
+    const address = localStorage.getItem('WALLET_ADDRESS');
+    if (mainPublicKey && mainPrivateKey && address) {
+      mainKeys = {
+        publicKey: mainPublicKey,
+        privateKey: mainPrivateKey,
+        walletAddress: address,
+      };
+    }
     return (
-      <Login  login={login} register={register} getEthAccount={getAccount} setKeys={setKeys} handleEvent={handleEvent} appType={appType} />
+      <Login  setKeys={setKeys} handleEvent={handleEvent} appType={appType}  handleLoginEvent={handleLoginEvent} mainKeys={mainKeys}/>
     );
   }
 

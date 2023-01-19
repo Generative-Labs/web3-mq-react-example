@@ -11,11 +11,10 @@ import './index.css';
 
 interface IProps {
   setKeys: any;
-  login: any
-  register: any
-  getEthAccount: any
   handleEvent: (options: SignClientCallBackType) => void;
   appType?: AppTypeEnum
+  mainKeys?: any;
+  handleLoginEvent: any;
 }
 
 const { Option } = Select;
@@ -23,7 +22,7 @@ const { Option } = Select;
 const { Step } = Steps;
 
 const Login: React.FC<IProps> = (props) => {
-  const { login, getEthAccount, register,  setKeys, handleEvent, appType = AppTypeEnum.pc } = props;
+  const {  setKeys, handleEvent, appType = AppTypeEnum.pc, handleLoginEvent, mainKeys = null } = props;
   const [step, setStep] = useState<number>(0);
   const [didType, setDidType] = useState<string>('eth');
   const [didValue, setDidValue] = useState<string>(
@@ -123,15 +122,16 @@ const Login: React.FC<IProps> = (props) => {
       </div>
       <div className='button_box'>
         <LoginModal
+            containerId={''}
+            keys={mainKeys}
+            handleLoginEvent={handleLoginEvent}
             appType={appType}
-            containerId={'login_container'}
-            register={register}
-            login={login}
-            getEthAccount={getEthAccount}
-            loginBtnNode={<button className='sign_btn'>
-              <MetaMaskIcon />
-              MetaMask
-            </button>}
+            loginBtnNode={
+              <button className="sign_btn">
+                <MetaMaskIcon />
+                MetaMask
+              </button>
+            }
         />
         <button onClick={show} className='sign_btn'>
           <img className='btnIcon' src='./web3mq.logo.ico' alt='' />
