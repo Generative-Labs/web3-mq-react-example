@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Client, SignClientCallBackType } from 'web3-mq';
-import {Modal, Loading, LoginModal, AppTypeEnum} from 'web3-mq-react';
+import { Client, SignClientCallBackType } from '@web3mq/client';
+import {Modal, Loading, LoginModal, AppTypeEnum} from '@web3mq/react-components';
 import { Input, Select, message, Steps } from 'antd';
 
 import useToggle from '../../hooks/useToggle';

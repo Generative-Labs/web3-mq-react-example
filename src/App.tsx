@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Client } from 'web3-mq';
+import { Client } from '@web3mq/client';
 import {
   Chat,
   Channel,
@@ -9,8 +9,8 @@ import {
   MessageHeader,
   MessageList,
   MessageInput,
-} from 'web3-mq-react';
-import 'web3-mq-react/dist/css/index.css';
+} from '@web3mq/react-components';
+import '@web3mq/react-components/dist/css/index.css';
 import MsgInput from './components/MsgInput';
 import Login from "./components/Login";
 

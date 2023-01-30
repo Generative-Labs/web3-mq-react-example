@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from 'web3-mq-react';
+import { Modal } from '@web3mq/react-components';
 import { Button, Form, Input, message, Spin } from 'antd';
 import { sha3_224 } from 'js-sha3';
 import {
   getUserInfoRequest,
   GenerateEd25519KeyPair,
   getCurrentDate,
-  LoginParams,
   userLoginRequest,
-} from 'web3-mq';
+} from '@web3mq/client';
 
 import useToggle from '../../hooks/useToggle';
 import './index.css';

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import {Client, KeyPairsType, SignClientCallBackType, WalletType} from 'web3-mq';
+import {Client, KeyPairsType, SignClientCallBackType, WalletType} from '@web3mq/client';
 import {message} from "antd";
 
 const useLogin = () => {
