@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { ChatAutoComplete, useChatContext, Notify } from 'web3-mq-react';
+import { ChatAutoComplete, useChatContext, Notify } from '@web3mq/react-components';
 import cx from 'classnames';
 
 import { OpenModalIcon, WarningIcon } from '../../icons';

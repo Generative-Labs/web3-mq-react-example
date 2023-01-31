@@ -1,60 +1,149 @@
 .login_container {
-    text-align: center;
-    margin-top: 300px;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .step_text {
-    font-family: sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    color: #000000;
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  color: #000000;
 }
 
 .step_box .up_text {
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 36px;
-    height: 36px;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  height: 36px;
 }
 
 .step_box .down_text {
-    margin-top: 12px;
-    padding: 0 54px;
-    line-height: 150%;
-    color: #424242;
+  margin-top: 12px;
+  padding: 0 54px;
+  line-height: 150%;
+  color: #424242;
 }
 
 .step_box .step_text {
-    margin-top: 78px;
-    line-height: 16px;
+  margin-top: 78px;
+  line-height: 16px;
 }
 
 .button_box {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
+  row-gap: 10px;
 }
 
 .sign_btn {
-    width: 195px;
-    height: 48px;
-    border-radius: 49px;
-    border: none;
-    color: #FFFFFF;
-    background: #337DCF;
-    font-weight: bold;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 195px;
+  height: 48px;
+  border-radius: 49px;
+  border: none;
+  color: #000;
+  background: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(230, 230, 230);
 }
 
 .sign_btn:hover {
-    /*background: rgba(51, 125, 207, 0.6);*/
-    opacity: 0.6;
-    cursor: pointer;
-
+  /*background: rgba(51, 125, 207, 0.6);*/
+  /* opacity: 0.6; */
+  color: #fff;
+  background-color: #337dcf;
+  border-color: transparent;
+  cursor: pointer;
 }
 
+.modalLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+}
+.modalContentBody {
+  flex: 1;
+}
+.ModalBtnGroupBtn {
+  cursor: pointer;
+  width: 195px;
+  height: 48px;
+  border-radius: 49px;
+  border: none;
+  color: #ffffff;
+  background: #337dcf;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.modalContentBodyInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.modalContentBodyInput input,
+select {
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-size: 16px;
+  outline: none;
+  height: 40px;
+  width: 60%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding-left: 12px;
+}
+.codeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.code {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.codeItem {
+  font-size: 60px;
+  font-weight: bold;
+  color: blue;
+}
+.tips {
+  padding: 0 40px;
+  font-size: 24px;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+}
+.step {
+  margin-top: 80px;
+  padding: 0 50px;
+}
+
+.btnIcon {
+  width: 20px;
+  margin-right: 2px;
+}

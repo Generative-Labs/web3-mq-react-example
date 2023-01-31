@@ -1,0 +1,14 @@
+.btnIcon {
+  width: 20px;
+  margin-right: 2px;
+}
+.dialogClassName {
+  padding-right: 60px;
+  padding-top: 100px;
+}
+.btnGroup {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
