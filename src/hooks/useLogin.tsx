@@ -15,10 +15,6 @@ const useLogin = () => {
 
   const [keys, setKeys] = useState<KeyPairsType | null>(hasKeys);
   const [fastestUrl, setFastUrl] = useState<string | null>(null);
-  const [userAccount, setUserAccount] = useState<{
-    userid: string;
-    address: string;
-  }>();
 
   const init = async () => {
     const tempPubkey = localStorage.getItem('PUBLIC_KEY') || '';
@@ -26,6 +22,7 @@ const useLogin = () => {
     const fastUrl = await Client.init({
       connectUrl: localStorage.getItem('FAST_URL'),
       app_key: 'vAUJTFXbBZRkEDRE',
+      env: 'dev',
       didKey,
       tempPubkey,
     });
