@@ -133,10 +133,10 @@ const Login: React.FC<IProps> = (props) => {
               </button>
             }
         />
-        <button onClick={show} className='sign_btn'>
-          <img className='btnIcon' src='./web3mq.logo.ico' alt='' />
-          <span>Phone verification</span>
-        </button>
+        {/*<button onClick={show} className='sign_btn'>*/}
+        {/*  <img className='btnIcon' src='./web3mq.logo.ico' alt='' />*/}
+        {/*  <span>Phone verification</span>*/}
+        {/*</button>*/}
         <Modal
           title='Phone verification'
           visible={visible}
@@ -193,7 +193,7 @@ const Login: React.FC<IProps> = (props) => {
           )}
           <ModalBtnGroup />
         </Modal>
-        <MPCBtn setKeys={setKeys} />
+        {/*<MPCBtn setKeys={setKeys} />*/}
       </div>
     </div>
   );
