@@ -24,6 +24,7 @@ const useLogin = () => {
       app_key: 'vAUJTFXbBZRkEDRE',
       didKey,
       tempPubkey,
+      env: 'dev'
     });
     localStorage.setItem('FAST_URL', fastUrl);
     setFastUrl(fastUrl);

@@ -122,6 +122,7 @@ const Login: React.FC<IProps> = (props) => {
       </div>
       <div className='button_box'>
         <LoginModal
+            env={'dev'}
             containerId={''}
             keys={mainKeys}
             handleLoginEvent={handleLoginEvent}
