@@ -66,20 +66,20 @@ const App: React.FC = () => {
     await client?.sendSign({
       signContent: "test sign out",
       address: walletAddress || "",
-      needJump: true
+      needJump: isMobile(),
     });
   };
   const createLink = async () => {
-    const mode = isMobile() ? 'mobile' : 'pc'
+    const mode = isMobile() ? "mobile" : "pc";
 
     const link = client?.getConnectLink({
-      mode
+      mode,
     });
     if (link) {
-      if (mode === 'pc') {
+      if (mode === "pc") {
         const qrCode = await generateQrCode(link);
         setQrCodeImg(qrCode);
-      } else  {
+      } else {
         window.open(link);
       }
     }
