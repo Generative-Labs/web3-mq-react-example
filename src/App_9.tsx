@@ -68,6 +68,9 @@ const App: React.FC = () => {
       address: walletAddress || "",
       needJump: isMobile(),
     });
+    setTimeout(() => {
+      window.open('web3mq://test')
+    }, 500)
   };
   const createLink = async () => {
     const mode = isMobile() ? "mobile" : "pc";
