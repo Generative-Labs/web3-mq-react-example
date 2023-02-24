@@ -70,7 +70,8 @@ const App: React.FC = () => {
     const link = client?.getConnectLink();
     if (link) {
       if (isMobile()) {
-        window.open(link);
+        console.log(`web3mq://?${link}`)
+        window.open(`web3mq://?${link}`);
       } else {
         const qrCode = await generateQrCode(link);
         setQrCodeImg(qrCode);
