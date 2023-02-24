@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Client, SignClientCallBackType } from "@web3mq/client";
 import {
-  Modal,
-  Loading,
   LoginModal,
   AppTypeEnum,
+  Button,
 } from "@web3mq/react-components";
-import { Input, Select, message, Steps } from "antd";
+import { Select, message, Steps } from "antd";
 
 import useToggle from "../../hooks/useToggle";
-import { MetaMaskIcon } from "../../icons";
+import {
+  LoginBgcIcon,
+  LoginCenterIcon,
+  ConnectWalletIcon,
+} from "../../icons";
 import MPCBtn from "../MPCBtn";
 
 import "./index.css";
@@ -39,8 +42,12 @@ const Login: React.FC<IProps> = (props) => {
   const [didValue, setDidValue] = useState<string>(
     "0x7F96DDA344bDbb3747510eE7d0a1f88DD3E60Dc2"
   );
-  const [visible, show, hide] = useToggle();
-  const [loading, showLoading, hideLoading] = useToggle();
+  const { visible, show, hide } = useToggle();
+  const {
+    visible: loading,
+    show: showLoading,
+    hide: hideLoading,
+  } = useToggle();
 
   const handleSelect = (value: string) => {
     setDidType(value);
@@ -124,96 +131,118 @@ const Login: React.FC<IProps> = (props) => {
 
   return (
     <div className="login_container">
-      <div className="step_box">
-        <div className="up_text">Welcome to Web3MQ</div>
-        <div className="down_text">
-          Let’s get started with your decentralized trip now!
+      <div className="test-bgc">
+        <LoginBgcIcon />
+      </div>
+      <div className="connectBtnBox">
+        <LoginCenterIcon />
+        <div className="connectBtnBoxTitle">Welcome to Web3MQ</div>
+        <div className="connectBtnBoxText">
+          Let's get started with your decentralized trip now!
         </div>
-        <div className="step_text">Step1: Connect Wallet</div>
+        <div className='walletConnect-btnBox'>
+          <LoginModal
+            env={"dev"}
+            containerId={""}
+            keys={mainKeys}
+            handleLoginEvent={handleLoginEvent}
+            appType={appType}
+            styles={{
+              addressBox: {
+                width: "281px",
+              },
+            }}
+            loginBtnNode={
+              <Button icon={<ConnectWalletIcon />} type={"primary"} className='walletConnect-btn'>
+                Connect
+              </Button>
+            }
+          />
+        </div>
       </div>
-      <div className="button_box">
-        <LoginModal
-          env={"dev"}
-          containerId={""}
-          keys={mainKeys}
-          handleLoginEvent={handleLoginEvent}
-          appType={appType}
-          styles={{
-            addressBox: {
-              width: "281px",
-            },
-          }}
-          loginBtnNode={
-            <button className="sign_btn">
-              <MetaMaskIcon />
-              MetaMask
-            </button>
-          }
-        />
-        {/*<button onClick={show} className='sign_btn'>*/}
-        {/*  <img className='btnIcon' src='./web3mq.logo.ico' alt='' />*/}
-        {/*  <span>Phone verification</span>*/}
-        {/*</button>*/}
-        <Modal
-          title="Phone verification"
-          visible={visible}
-          closeModal={() => {
-            hide();
-            setStep(0);
-          }}
-          dialogClassName="modalContent"
-        >
-          <div className="step">
-            <Steps size="small" current={step}>
-              <Step title="Create connect" />
-              <Step title="Send message" />
-              <Step title="Confirm" />
-            </Steps>
-          </div>
-          {loading && (
-            <div className="modalLoading">
-              <Loading />
-            </div>
-          )}
-          {step === 0 && !loading && (
-            <div className="modalContentBody modalContentBodyInput">
-              <Select
-                size="large"
-                style={{ width: "60%", height: 42 }}
-                value={didType}
-                onChange={handleSelect}
-              >
-                <Option value="eth">Eth</Option>
-                <Option value="lens.xyz">Lens</Option>
-              </Select>
-              <br />
-              <Input
-                value={didValue}
-                onChange={handleInput}
-                placeholder="please enter your Did Value"
-              />
-            </div>
-          )}
-          {step === 1 && !loading && (
-            <div className="modalContentBody modalContentBodyInput">
-              Step2: Send Message
-            </div>
-          )}
-          {step === 2 && !loading && (
-            <div className="modalContentBody codeContainer">
-              <div className="code">
-                {Client.signClient.tempCode.split("").map((item, idx) => (
-                  <span key={idx} className="codeItem">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          <ModalBtnGroup />
-        </Modal>
-        {/*<MPCBtn setKeys={setKeys} />*/}
-      </div>
+      {/*<div className="button_box">*/}
+      {/*  <LoginModal*/}
+      {/*    env={"dev"}*/}
+      {/*    containerId={""}*/}
+      {/*    keys={mainKeys}*/}
+      {/*    handleLoginEvent={handleLoginEvent}*/}
+      {/*    appType={appType}*/}
+      {/*    styles={{*/}
+      {/*      addressBox: {*/}
+      {/*        width: "281px",*/}
+      {/*      },*/}
+      {/*    }}*/}
+      {/*    loginBtnNode={*/}
+      {/*      <button className="sign_btn">*/}
+      {/*        <MetaMaskIcon />*/}
+      {/*        MetaMask*/}
+      {/*      </button>*/}
+      {/*    }*/}
+      {/*  />*/}
+      {/*  /!*<button onClick={show} className='sign_btn'>*!/*/}
+      {/*  /!*  <img className='btnIcon' src='./web3mq.logo.ico' alt='' />*!/*/}
+      {/*  /!*  <span>Phone verification</span>*!/*/}
+      {/*  /!*</button>*!/*/}
+      {/*  /!*<Modal*!/*/}
+      {/*  /!*  title="Phone verification"*!/*/}
+      {/*  /!*  visible={visible}*!/*/}
+      {/*  /!*  closeModal={() => {*!/*/}
+      {/*  /!*    hide();*!/*/}
+      {/*  /!*    setStep(0);*!/*/}
+      {/*  /!*  }}*!/*/}
+      {/*  /!*  dialogClassName="modalContent"*!/*/}
+      {/*  /!*>*!/*/}
+      {/*  /!*  <div className="step">*!/*/}
+      {/*  /!*    <Steps size="small" current={step}>*!/*/}
+      {/*  /!*      <Step title="Create connect" />*!/*/}
+      {/*  /!*      <Step title="Send message" />*!/*/}
+      {/*  /!*      <Step title="Confirm" />*!/*/}
+      {/*  /!*    </Steps>*!/*/}
+      {/*  /!*  </div>*!/*/}
+      {/*  /!*  {loading && (*!/*/}
+      {/*  /!*    <div className="modalLoading">*!/*/}
+      {/*  /!*      <Loading />*!/*/}
+      {/*  /!*    </div>*!/*/}
+      {/*  /!*  )}*!/*/}
+      {/*  /!*  {step === 0 && !loading && (*!/*/}
+      {/*  /!*    <div className="modalContentBody modalContentBodyInput">*!/*/}
+      {/*  /!*      <Select*!/*/}
+      {/*  /!*        size="large"*!/*/}
+      {/*  /!*        style={{ width: "60%", height: 42 }}*!/*/}
+      {/*  /!*        value={didType}*!/*/}
+      {/*  /!*        onChange={handleSelect}*!/*/}
+      {/*  /!*      >*!/*/}
+      {/*  /!*        <Option value="eth">Eth</Option>*!/*/}
+      {/*  /!*        <Option value="lens.xyz">Lens</Option>*!/*/}
+      {/*  /!*      </Select>*!/*/}
+      {/*  /!*      <br />*!/*/}
+      {/*  /!*      <Input*!/*/}
+      {/*  /!*        value={didValue}*!/*/}
+      {/*  /!*        onChange={handleInput}*!/*/}
+      {/*  /!*        placeholder="please enter your Did Value"*!/*/}
+      {/*  /!*      />*!/*/}
+      {/*  /!*    </div>*!/*/}
+      {/*  /!*  )}*!/*/}
+      {/*  /!*  {step === 1 && !loading && (*!/*/}
+      {/*  /!*    <div className="modalContentBody modalContentBodyInput">*!/*/}
+      {/*  /!*      Step2: Send Message*!/*/}
+      {/*  /!*    </div>*!/*/}
+      {/*  /!*  )}*!/*/}
+      {/*  /!*  {step === 2 && !loading && (*!/*/}
+      {/*  /!*    <div className="modalContentBody codeContainer">*!/*/}
+      {/*  /!*      <div className="code">*!/*/}
+      {/*  /!*        {Client.signClient.tempCode.split("").map((item, idx) => (*!/*/}
+      {/*  /!*          <span key={idx} className="codeItem">*!/*/}
+      {/*  /!*            {item}*!/*/}
+      {/*  /!*          </span>*!/*/}
+      {/*  /!*        ))}*!/*/}
+      {/*  /!*      </div>*!/*/}
+      {/*  /!*    </div>*!/*/}
+      {/*  /!*  )}*!/*/}
+      {/*  /!*  <ModalBtnGroup />*!/*/}
+      {/*  /!*</Modal>*!/*/}
+      {/*  /!*<MPCBtn setKeys={setKeys} />*!/*/}
+      {/*</div>*/}
     </div>
   );
 };

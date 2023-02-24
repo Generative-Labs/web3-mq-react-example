@@ -5,3 +5,6 @@ export * from './MetaMaskIcon';
 // export * from './SudoswapIcon';
 // export * from './TransferIcon';
 export * from './WarningIcon';
+export * from './LoginBgcIcon';
+export * from './LoginCenterIcon';
+export * from './ConnectWalletIcon';

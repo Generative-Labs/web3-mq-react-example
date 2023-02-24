@@ -67,6 +67,11 @@ const App: React.FC = () => {
       signContent: "test sign out",
       address: walletAddress || "",
     });
+    if (isMobile()) {
+      setTimeout(() => {
+        window.open('web3mq://')
+      }, 500)
+    }
   };
   const createLink = async () => {
     const link = client?.getConnectLink();
