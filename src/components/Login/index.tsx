@@ -1,19 +1,10 @@
 import React, { useState } from "react";
 import { Client, SignClientCallBackType } from "@web3mq/client";
-import {
-  LoginModal,
-  AppTypeEnum,
-  Button,
-} from "@web3mq/react-components";
-import { Select, message, Steps } from "antd";
+import { AppTypeEnum, Button, LoginModal } from "@web3mq/react-components";
+import { message, Select, Steps } from "antd";
 
 import useToggle from "../../hooks/useToggle";
-import {
-  LoginBgcIcon,
-  LoginCenterIcon,
-  ConnectWalletIcon,
-} from "../../icons";
-import MPCBtn from "../MPCBtn";
+import { ConnectWalletIcon, LoginBgcIcon, LoginCenterIcon } from "../../icons";
 
 import "./index.css";
 
@@ -134,7 +125,7 @@ const Login: React.FC<IProps> = (props) => {
       <div className="test-bgc">
         <LoginBgcIcon />
       </div>
-      <div className="connectBtnBox">
+      <div className={ appType !== AppTypeEnum.pc ? 'connectBtnBox connectMobileBtnBox' : 'connectBtnBox'}>
         <LoginCenterIcon />
         <div className="connectBtnBoxTitle">Welcome to Web3MQ</div>
         <div className="connectBtnBoxText">
