@@ -18,7 +18,7 @@ interface IProos {
 
 const MPCBtn = (props: IProos) => {
   const { setKeys } = props;
-  const [visible, show, hide] = useToggle();
+  const {visible, show, hide} = useToggle();
   const [step, setStep] = useState('check');
   const [signStep, setSignStep] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
