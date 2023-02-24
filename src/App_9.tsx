@@ -70,7 +70,7 @@ const App: React.FC = () => {
     });
     setTimeout(() => {
       window.open('web3mq://test')
-    }, 500)
+    }, 1000)
   };
   const createLink = async () => {
     const mode = isMobile() ? "mobile" : "pc";
@@ -106,6 +106,12 @@ const App: React.FC = () => {
           </div>
           <div>
             <button onClick={sign}>send Sign</button>
+          </div>
+          <div>
+            <button onClick={() => {
+              window.open('web3mq://')
+
+            }}>open wallet</button>
           </div>
         </div>
       )}
