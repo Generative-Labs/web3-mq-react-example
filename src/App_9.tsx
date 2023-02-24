@@ -12,6 +12,7 @@ const App: React.FC = () => {
   const [qrCodeImg, setQrCodeImg] = useState("");
   const [signRes, setSignRes] = useState("");
   const [showLink, setShowLink] = useState(false);
+  const [showOpenButton, setShowOpenButton] = useState(false);
 
   const handleDappConnectCallback = async (
     event: DappConnectCallbackParams
@@ -37,6 +38,7 @@ const App: React.FC = () => {
         if (data.method === WalletMethodMap.personalSign) {
           console.log("sign success: ", metadata?.signature);
           setSignRes(metadata?.signature || "");
+          setShowOpenButton(false)
         }
       }
     } else {
@@ -66,22 +68,22 @@ const App: React.FC = () => {
     await client?.sendSign({
       signContent: "test sign out",
       address: walletAddress || "",
+      needJump: isMobile(),
     });
-    if (isMobile()) {
-      setTimeout(() => {
-        window.open('web3mq://')
-      }, 500)
-    }
+    setShowOpenButton(true)
   };
   const createLink = async () => {
-    const link = client?.getConnectLink();
+    const mode = isMobile() ? "mobile" : "pc";
+
+    const link = client?.getConnectLink({
+      mode,
+    });
     if (link) {
-      if (isMobile()) {
-        console.log(`web3mq://?${link}`);
-        window.open(`web3mq://?${link}`);
-      } else {
+      if (mode === "pc") {
         const qrCode = await generateQrCode(link);
         setQrCodeImg(qrCode);
+      } else {
+        window.open(link);
       }
     }
   };
@@ -107,6 +109,14 @@ const App: React.FC = () => {
           </div>
         </div>
       )}
+
+      {
+        showOpenButton &&  <div>
+            <button onClick={() => {
+              window.open('web3mq://')
+            }}>open wallet</button>
+          </div>
+      }
 
       <div>
         {qrCodeImg && (
