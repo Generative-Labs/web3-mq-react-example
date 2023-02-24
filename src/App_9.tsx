@@ -66,22 +66,21 @@ const App: React.FC = () => {
     await client?.sendSign({
       signContent: "test sign out",
       address: walletAddress || "",
+      needJump: true
     });
-    if (isMobile()) {
-      setTimeout(() => {
-        window.open('web3mq://')
-      }, 500)
-    }
   };
   const createLink = async () => {
-    const link = client?.getConnectLink();
+    const mode = isMobile() ? 'mobile' : 'pc'
+
+    const link = client?.getConnectLink({
+      mode
+    });
     if (link) {
-      if (isMobile()) {
-        console.log(`web3mq://?${link}`);
-        window.open(`web3mq://?${link}`);
-      } else {
+      if (mode === 'pc') {
         const qrCode = await generateQrCode(link);
         setQrCodeImg(qrCode);
+      } else  {
+        window.open(link);
       }
     }
   };
