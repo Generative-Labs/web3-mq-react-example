@@ -4,13 +4,14 @@ import {
   DappConnectCallbackParams,
   WalletMethodMap,
 } from "@web3mq/dapp-connect";
-import { generateQrCode } from '@web3mq/dapp-connect-react'
+import { generateQrCode } from "@web3mq/dapp-connect-react";
 
 const App: React.FC = () => {
   const [client, setClient] = useState<DappConnect>();
   const [walletAddress, setWalletAddress] = useState("");
   const [qrCodeImg, setQrCodeImg] = useState("");
   const [signRes, setSignRes] = useState("");
+  const [showLink, setShowLink] = useState(false);
 
   const handleDappConnectCallback = async (
     event: DappConnectCallbackParams
@@ -21,6 +22,7 @@ const App: React.FC = () => {
     if (data.approve) {
       if (type === "connect") {
         console.log("ws connect success");
+        setShowLink(true);
         return;
       }
       if (type === "dapp-connect") {
@@ -70,7 +72,7 @@ const App: React.FC = () => {
     const link = client?.getConnectLink();
     if (link) {
       if (isMobile()) {
-        console.log(`web3mq://?${link}`)
+        console.log(`web3mq://?${link}`);
         window.open(`web3mq://?${link}`);
       } else {
         const qrCode = await generateQrCode(link);
@@ -90,12 +92,16 @@ const App: React.FC = () => {
       <div>
         <button onClick={init}>init</button>
       </div>
-      <div>
-        <button onClick={createLink}>create link</button>
-      </div>
-      <div>
-        <button onClick={sign}>send Sign</button>
-      </div>
+      {showLink && (
+        <div>
+          <div>
+            <button onClick={createLink}>create link</button>
+          </div>
+          <div>
+            <button onClick={sign}>send Sign</button>
+          </div>
+        </div>
+      )}
 
       <div>
         {qrCodeImg && (
