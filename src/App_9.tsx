@@ -74,7 +74,6 @@ const App: React.FC = () => {
   };
   const createLink = async () => {
     const mode = isMobile() ? "mobile" : "pc";
-
     const link = client?.getConnectLink({
       mode,
     });
