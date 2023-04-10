@@ -10,6 +10,7 @@ import "./index.css";
 
 interface IProps {
   setKeys: any;
+  fastUrl: string | null;
   handleEvent: (options: SignClientCallBackType) => void;
   appType?: AppTypeEnum;
   mainKeys?: any;
@@ -27,6 +28,7 @@ const Login: React.FC<IProps> = (props) => {
     appType = AppTypeEnum.pc,
     handleLoginEvent,
     mainKeys = null,
+    fastUrl,
   } = props;
   const [step, setStep] = useState<number>(0);
   const [didType, setDidType] = useState<string>("eth");
@@ -125,13 +127,19 @@ const Login: React.FC<IProps> = (props) => {
       <div className="test-bgc">
         <LoginBgcIcon />
       </div>
-      <div className={ appType !== AppTypeEnum.pc ? 'connectBtnBox connectMobileBtnBox' : 'connectBtnBox'}>
+      <div
+        className={
+          appType !== AppTypeEnum.pc
+            ? "connectBtnBox connectMobileBtnBox"
+            : "connectBtnBox"
+        }
+      >
         <LoginCenterIcon />
         <div className="connectBtnBoxTitle">Welcome to Web3MQ</div>
         <div className="connectBtnBoxText">
           Let's get started with your decentralized trip now!
         </div>
-        <div className='walletConnect-btnBox'>
+        <div className="walletConnect-btnBox">
           <LoginModal
             env={"dev"}
             containerId={""}
@@ -144,8 +152,13 @@ const Login: React.FC<IProps> = (props) => {
               },
             }}
             loginBtnNode={
-              <Button icon={<ConnectWalletIcon />} type={"primary"} className='walletConnect-btn'>
-                Connect
+              <Button
+                icon={<ConnectWalletIcon />}
+                type={"primary"}
+                className="walletConnect-btn"
+                disabled={!fastUrl}
+              >
+                {fastUrl ? "Connect" : "Initializing"}
               </Button>
             }
           />
