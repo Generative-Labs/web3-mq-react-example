@@ -43,7 +43,7 @@ const App: React.FC = () => {
       };
     }
     return (
-      <Login  setKeys={setKeys} handleEvent={handleEvent} appType={appType}  handleLoginEvent={handleLoginEvent} mainKeys={mainKeys}/>
+      <Login  setKeys={setKeys} handleEvent={handleEvent} appType={appType}  handleLoginEvent={handleLoginEvent} mainKeys={mainKeys} fastUrl={fastestUrl}  />
     );
   }
 
