@@ -144,14 +144,14 @@ const Login: React.FC<IProps> = (props) => {
             env={"dev"}
             containerId={""}
             keys={mainKeys}
-            handleLoginEvent={handleLoginEvent}
+            handleOperationEvent={handleLoginEvent}
             appType={appType}
             styles={{
               addressBox: {
                 width: "281px",
               },
             }}
-            loginBtnNode={
+            customBtnNode={
               <Button
                 icon={<ConnectWalletIcon />}
                 type={"primary"}
