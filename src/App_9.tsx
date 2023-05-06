@@ -57,7 +57,6 @@ const App: React.FC = () => {
         dAppID: "SwapChat:im",
         keepAlive: false,
         requestTimeout: 60000,
-        env: "dev",
       },
       handleDappConnectCallback
     );
