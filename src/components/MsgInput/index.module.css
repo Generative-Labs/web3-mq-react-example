@@ -18,7 +18,8 @@
 }
 .operationContainer {
   padding: 24px;
-  background: #fafafa;
+  /*background: #fafafa;*/
+  background: #5F5F5F;
 }
 .operation {
   display: flex;

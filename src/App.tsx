@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     init();
-    document.getElementsByTagName('body')[0].setAttribute('data-theme', 'light');
+    document.getElementsByTagName('body')[0].setAttribute('data-theme', 'dark');
     window.addEventListener('resize', () => {
       setAppType(
         window.innerWidth <= 600 ? AppTypeEnum['h5'] : AppTypeEnum['pc']
