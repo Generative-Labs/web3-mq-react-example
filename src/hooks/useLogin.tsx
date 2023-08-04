@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import {Client, KeyPairsType, SignClientCallBackType, WalletType} from '@web3mq/client';
+import {Client, EnvTypes, KeyPairsType, SignClientCallBackType, WalletType} from '@web3mq/client';
 import {message} from "antd";
 
 const useLogin = () => {
@@ -16,6 +16,17 @@ const useLogin = () => {
   const [keys, setKeys] = useState<KeyPairsType | null>(hasKeys);
   const [fastestUrl, setFastUrl] = useState<string | null>(null);
 
+  const getEnv = (): EnvTypes => {
+    if (
+        process.env.REACT_APP_CLIENT_ENV === "development" ||
+        process.env.NODE_ENV === "development"
+    ) {
+      return "dev";
+    } else {
+      return "test";
+    }
+  };
+
   const init = async () => {
     const tempPubkey = localStorage.getItem('PUBLIC_KEY') || '';
     const didKey = localStorage.getItem('DID_KEY') || '';
@@ -24,6 +35,7 @@ const useLogin = () => {
       app_key: 'vAUJTFXbBZRkEDRE',
       didKey,
       tempPubkey,
+      env: getEnv()
     });
     localStorage.setItem('FAST_URL', fastUrl);
     setFastUrl(fastUrl);
