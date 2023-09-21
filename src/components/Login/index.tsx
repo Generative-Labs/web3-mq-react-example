@@ -92,10 +92,10 @@ const Login: React.FC<IProps> = (props) => {
       return;
     }
     showLoading();
-    await Client.signClient.sendDappBridge({
-      did_type: didType,
-      did_value: didValue,
-    });
+    // await Client.signClient.sendDappBridge({
+    //   did_type: didType,
+    //   did_value: didValue,
+    // });
     hideLoading();
     setStep(2);
   };
